@@ -1,0 +1,27 @@
+apiVersion: serving.kserve.io/v1alpha1
+kind: ServingRuntime
+metadata:
+  name: vllm-runtime
+  namespace: gpt-oss-20b-benchmark
+spec:
+  annotations:
+    prometheus.io/port: "8000"
+    prometheus.io/path: /metrics
+    prometheus.io/scrape: "true"
+  multiModel: false
+  supportedModelFormats:
+    - autoSelect: true
+      name: vLLM
+  containers:
+    - name: kserve-container
+      image: registry.redhat.io/rhaiis/vllm-cuda-rhel9:latest
+      args:
+        - --port=8000
+        - --model=/mnt/models
+        - --max-model-len=16000
+      env:
+        - name: HF_HOME
+          value: /tmp/hf_home
+      ports:
+        - containerPort: 8000
+          protocol: TCP
