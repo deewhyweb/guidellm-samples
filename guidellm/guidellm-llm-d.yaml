@@ -26,6 +26,8 @@ spec:
               value: "/data/prompts.csv"
             - name: HF_HOME
               value: "/cache"
+            - name: REQUEST_TYPE
+              value: "completions"
           volumeMounts:
             - name: data
               mountPath: /data
