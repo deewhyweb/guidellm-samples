@@ -13,21 +13,13 @@ spec:
     uri: hf://gpt-oss-20b
     name: gpt-oss-20b
   router:
+router:
     scheduler:
       template:
         containers:
           - name: main
-            env:
-              - name: TOKENIZER_CACHE_DIR
-                value: /tmp/tokenizer-cache
-              - name: HF_HOME
-                value: /tmp/tokenizer-cache
-              - name: TRANSFORMERS_CACHE
-                value: /tmp/tokenizer-cache
-              - name: XDG_CACHE_HOME
-                value: /tmp
             args:
-              - -v=4
+              - -v=1
               - '--cert-path'
               - /var/run/kserve/tls
               - --pool-group
@@ -65,16 +57,6 @@ spec:
                     weight: 2
                   - pluginRef: prefix-cache-scorer
                     weight: 3
-            volumeMounts:
-              - name: tokenizer-cache
-                mountPath: /tmp/tokenizer-cache
-              - name: cachi2-cache
-                mountPath: /cachi2
-        volumes:
-          - name: tokenizer-cache
-            emptyDir: {}
-          - name: cachi2-cache
-            emptyDir: {}
     route: {}
     gateway: {}
   template:
