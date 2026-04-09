@@ -27,7 +27,7 @@ spec:
             - name: HF_HOME
               value: "/cache"
             - name: GUIDELLM_REQUEST_TYPE
-              value: "completions"
+              value: "text_completions"
           volumeMounts:
             - name: data
               mountPath: /data
